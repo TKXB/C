@@ -1,6 +1,6 @@
 //
 // Created by root on 5/3/17.
-// usage: echo "AUTH\c" > /proc/NAME  echo要使用\c不换行
+// usage: echo -e "AUTH\c" > /proc/NAME  echo要使用-e \c不换行
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
