@@ -48,13 +48,15 @@ void executeCMD(const char *cmd, char* result)
     char ps[1024]={0};
     FILE *ptr;
     strcpy(ps, cmd);
-    if((ptr=popen(ps, "r"))!=NULL)    //执行系统命令并获取结果
+    file = fopen(result,"a");
+
+    if((ptr=popen(ps, "r"))!=NULL)              //执行系统命令并获取结果
     {
         while(fgets(buf_ps, 1024, ptr)!=NULL)
         {
-            file = fopen(result,"a");
+
             fwrite(buf_ps,1, strlen(buf_ps),file);
-            fclose(file);
+            fflush(file);
         }
         pclose(ptr);
         ptr = NULL;
@@ -67,6 +69,7 @@ void executeCMD(const char *cmd, char* result)
 
 void main(int argc, char* argv[]){
     init_daemon();
+
     char cmd[256] = "tail -f ";
     char * dest = strcat(cmd,argv[1]);
     executeCMD(dest, argv[2]);
